@@ -1,0 +1,39 @@
+type Vase {
+  id: ID
+  name: String
+  unitPrice: Float
+}
+
+type DeletedResourceResponse {
+  deletedId: ID
+  success: Boolean
+}
+
+type CartItem {
+  id: ID!
+  name: String!
+  unitPrice: Float!
+  quantity: Int!
+}
+
+type ShoppingCart {
+  cartId: ID!
+  items: [CartItem!]
+  totalprice: Float!
+}
+
+type Query {
+  getVaseById(vaseId: ID!): Vase
+  getAllVases: [Vase]
+  getShoppingCartById(cartId: ID!): ShoppingCart
+  getAllShoppingCarts: [ShoppingCart]
+}
+
+type Mutation {
+  createNewShoppingCart: ShoppingCart
+  createVase(name: String, unitPrice: Float): Vase
+  addItemToCart(cartId: ID!, productId: ID!): ShoppingCart!
+  updateVase(id: ID!, name: String!, unitPrice: Float!): Vase
+  removeItemFromCart(cartId: ID!, cartItemId: ID!): ShoppingCart!
+  deleteShoppingCart(cartId: ID!): DeletedResourceResponse
+}
